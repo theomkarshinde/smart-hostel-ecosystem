@@ -122,7 +122,6 @@ public class UserServiceImpl implements UserService {
 		if (user.getResetTokenExpiry().isBefore(LocalDateTime.now())) {
 			throw new TokenExpiredException("The password reset link has expired.");
 		}
-
 		user.setPasswordHash(passwordEncoder.encode(newPassword));
 		user.setResetToken(null);
 		user.setResetTokenExpiry(null);
