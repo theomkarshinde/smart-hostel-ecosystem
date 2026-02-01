@@ -46,6 +46,16 @@ const wardenService = {
         return response.data;
     },
 
+    updateMessPlan: async (id, data) => {
+        const response = await api.put(`/mess/plans/${id}`, data);
+        return response.data;
+    },
+
+    deleteMessPlan: async (id) => {
+        const response = await api.delete(`/mess/plans/${id}`);
+        return response.data;
+    },
+
     addMessMenu: async (data) => {
         const response = await api.post('/mess/menu', data);
         return response.data;
