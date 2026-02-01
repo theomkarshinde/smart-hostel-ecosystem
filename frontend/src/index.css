@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@layer base {
+    body {
+        @apply bg-gray-50 text-gray-800 font-sans antialiased;
+    }
+}
+
+@layer components {
+    .app-card {
+        @apply bg-white rounded-lg shadow-sm border border-gray-100 p-6 transition-shadow duration-200 hover:shadow-md;
+    }
+
+    .app-card-header {
+        @apply text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-50;
+    }
+
+    .app-card-body {
+        @apply text-gray-600 text-sm leading-relaxed;
+    }
+}
+
+/* Hide Html5QrcodeScanner default error messages */
+#mess-reader__status_span, div[id$="__status_span"] {
+    display: none !important;
+}
