@@ -4,7 +4,7 @@ A comprehensive ecosystem for managing hostel operations, featuring modules for 
 
 ## 🚀 Tech Stack
 
-- **Backend:** Java, Spring Boot, Spring Security, JWT, JPA/Hibernate, MySQL
+- **Backend:** Java, Spring Boot, Spring Security, JWT, JPA/Hibernate, MySQL, Dotenv
 - **Frontend:** React, Vite, Tailwind CSS, Lucide Icons
 - **Integrations:** Razorpay (Payments), Gmail SMTP (Notifications)
 
@@ -30,11 +30,14 @@ A comprehensive ecosystem for managing hostel operations, featuring modules for 
 1. Navigate to the `backend` folder.
 2. Locate `.env.example` and create a new file named `.env`.
 3. Fill in your credentials:
-   - Database username/password
-   - SMTP credentials (for email notifications)
-   - JWT secret key
-   - Razorpay Key ID and Secret
-4. Run the application: `./mvnw spring-boot:run`
+   - `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USERNAME`, `DB_PASSWORD` (MySQL details)
+   - `MAIL_USERNAME`, `MAIL_PASSWORD` (Gmail App Password for notifications)
+   - `JWT_SECRET` (A secure random string for token generation)
+   - `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` (From Razorpay Dashboard)
+4. Build and run the application:
+   - If you have the Maven wrapper: `./mvnw spring-boot:run`
+   - If you have Maven installed globally: `mvn spring-boot:run`
+5. The application will automatically load variables from the `.env` file.
 
 ### 3. Frontend Configuration
 1. Navigate to the `frontend` folder.
