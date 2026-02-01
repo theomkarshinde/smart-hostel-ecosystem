@@ -44,9 +44,10 @@ const PendingStudents = () => {
     const openApproveModal = async (student) => {
         setSelectedStudent(student);
         const initialBuildingId = student.buildingId || (buildings.length > 0 ? (buildings[0].buildingId || buildings[0].id) : '');
+        const selectedBuilding = buildings.find(b => (b.buildingId || b.id) == initialBuildingId);
         setFormData({
             buildingId: initialBuildingId,
-            totalFee: student.totalFee || '',
+            totalFee: selectedBuilding?.fee || student.totalFee || '',
             isEmiEnabled: false,
             emiAmount: '',
             roomNumber: student.roomNumber || ''
@@ -74,7 +75,7 @@ const PendingStudents = () => {
         e.preventDefault();
         try {
             const feeData = {
-                totalFee: parseFloat(formData.totalFee) || 0,
+                totalFee: parseFloat(formData.totalFee),
                 isEmiEnabled: false,
                 emiAmount: 0.0,
                 roomNumber: formData.roomNumber
