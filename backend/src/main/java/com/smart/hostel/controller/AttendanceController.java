@@ -26,11 +26,12 @@ import com.smart.hostel.repository.StaffRepository;
 import com.smart.hostel.repository.UserRepository;
 import com.smart.hostel.service.AttendanceService;
 import com.smart.hostel.service.StudentService;
+import com.smart.hostel.exception.UnauthorizedException;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/attendance")
+@RequestMapping("/api/v1/attendance")
 @AllArgsConstructor
 public class AttendanceController {
 
@@ -72,12 +73,12 @@ public class AttendanceController {
 
 		if (currentUserRole.equals("ADMIN")) {
 			if (!targetStaffRole.equals("WARDEN")) {
-				throw new com.smart.hostel.exception.UnauthorizedException(
+				throw new UnauthorizedException(
 						"Admins can only mark attendance for Wardens");
 			}
 		} else if (currentUserRole.equals("WARDEN")) {
 			if (targetStaffRole.equals("ADMIN")) {
-				throw new com.smart.hostel.exception.UnauthorizedException("Wardens cannot mark attendance for Admins");
+				throw new UnauthorizedException("Wardens cannot mark attendance for Admins");
 			}
 		}
 

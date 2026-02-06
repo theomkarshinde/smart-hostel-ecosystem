@@ -10,6 +10,9 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 
 @Configuration
 public class OpenApiConfig {
@@ -30,14 +33,14 @@ public class OpenApiConfig {
                                 .license(new License().name("MIT License")
                                                 .url("https://choosealicense.com/licenses/mit/"));
 
-                io.swagger.v3.oas.models.security.SecurityRequirement securityRequirement = new io.swagger.v3.oas.models.security.SecurityRequirement()
+                SecurityRequirement securityRequirement = new SecurityRequirement()
                                 .addList("Bearer Authentication");
 
-                io.swagger.v3.oas.models.Components components = new io.swagger.v3.oas.models.Components()
+                Components components = new Components()
                                 .addSecuritySchemes("Bearer Authentication",
-                                                new io.swagger.v3.oas.models.security.SecurityScheme()
+                                                new SecurityScheme()
                                                                 .name("Bearer Authentication")
-                                                                .type(io.swagger.v3.oas.models.security.SecurityScheme.Type.HTTP)
+                                                                .type(SecurityScheme.Type.HTTP)
                                                                 .scheme("bearer")
                                                                 .bearerFormat("JWT"));
 

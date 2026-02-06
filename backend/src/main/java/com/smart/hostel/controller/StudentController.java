@@ -24,7 +24,7 @@ import com.smart.hostel.service.StudentService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/students")
+@RequestMapping("/api/v1/students")
 @AllArgsConstructor
 public class StudentController {
 

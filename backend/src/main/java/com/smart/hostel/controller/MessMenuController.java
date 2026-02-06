@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.smart.hostel.dto.MessMenuDTO;
 import com.smart.hostel.service.MessMenuService;
@@ -17,14 +18,14 @@ import com.smart.hostel.service.MessMenuService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/mess/menu")
+@RequestMapping("/api/v1/mess/menu")
 @AllArgsConstructor
 public class MessMenuController {
 
 	private final MessMenuService messMenuService;
 
 	@PostMapping
-	@org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN') or @securityService.isMessWarden(principal.username)")
+	@PreAuthorize("hasRole('ADMIN') or @securityService.isMessWarden(principal.username)")
 	public ResponseEntity<MessMenuDTO> add(@RequestBody MessMenuDTO dto) {
 		return ResponseEntity.ok(messMenuService.addMenu(dto));
 	}

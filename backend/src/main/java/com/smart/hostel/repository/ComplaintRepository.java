@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.smart.hostel.entity.Complaint;
+import com.smart.hostel.entity.ComplaintCategory;
 import com.smart.hostel.entity.ComplaintStatus;
 import com.smart.hostel.entity.HostelBuilding;
 import com.smart.hostel.entity.Student;
@@ -19,7 +20,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
 
 	List<Complaint> findByBuildingAndStatusOrderByCreatedAtDesc(HostelBuilding building, ComplaintStatus status);
 
-	List<Complaint> findByCategoryOrderByCreatedAtDesc(com.smart.hostel.entity.ComplaintCategory category);
+	List<Complaint> findByCategoryOrderByCreatedAtDesc(ComplaintCategory category);
 
 	List<Complaint> findByStatusOrderByCreatedAtDesc(ComplaintStatus status);
 

@@ -16,7 +16,7 @@ import com.smart.hostel.service.GuardService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/guard")
+@RequestMapping("/api/v1/guard")
 @AllArgsConstructor
 public class GuardController {
 

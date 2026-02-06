@@ -14,7 +14,7 @@ import com.smart.hostel.service.UserService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/users")
+@RequestMapping("/api/v1/users")
 @AllArgsConstructor
 public class UserController {
 

@@ -7,7 +7,7 @@ const Sidebar = ({ menuItems }) => {
         <aside className="w-64 bg-gray-800 min-h-screen flex flex-col">
             <div className="flex items-center justify-center gap-2 h-16 bg-gray-900">
                 <Buildings size={32} weight="fill" className="text-indigo-400" />
-                <span className="text-white font-bold text-xl">SHE Hostels</span>
+                <span className="text-white font-bold text-xl">S-H-E Hostels</span>
             </div>
             <nav className="flex-1 px-2 py-4 space-y-2">
                 {menuItems.map((item, index) => (

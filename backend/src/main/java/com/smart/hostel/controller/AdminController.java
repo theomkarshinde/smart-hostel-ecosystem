@@ -28,7 +28,7 @@ import com.smart.hostel.service.StaffService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/admin")
+@RequestMapping("/api/v1/admin")
 @AllArgsConstructor
 public class AdminController {
 

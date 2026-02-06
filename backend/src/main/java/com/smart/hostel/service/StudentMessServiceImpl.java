@@ -1,5 +1,8 @@
 package com.smart.hostel.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.smart.hostel.dto.NotificationDTO;
 import com.smart.hostel.dto.StudentMessDTO;
 import com.smart.hostel.entity.MessPlan;
+import com.smart.hostel.entity.Payment;
+import com.smart.hostel.entity.PaymentType;
 import com.smart.hostel.entity.Student;
 import com.smart.hostel.entity.StudentMess;
 import com.smart.hostel.entity.User;
@@ -41,8 +46,8 @@ public class StudentMessServiceImpl implements StudentMessService {
 		MessPlan plan = messPlanRepository.findById(dto.planId())
 				.orElseThrow(() -> new ResourceNotFoundException("Mess Plan not found"));
 
-		java.time.LocalDate start = dto.startDate() != null ? dto.startDate() : java.time.LocalDate.now();
-		java.time.LocalDate end = dto.endDate() != null ? dto.endDate() : start.plusDays(45);
+		LocalDate start = dto.startDate() != null ? dto.startDate() : LocalDate.now();
+		LocalDate end = dto.endDate() != null ? dto.endDate() : start.plusDays(45);
 
 		int totalMeals = 30 * 3;
 		double totalCost = totalMeals * plan.getPerMealCost().doubleValue();
@@ -63,11 +68,11 @@ public class StudentMessServiceImpl implements StudentMessService {
 		sm.setRemainingMeals(totalMeals);
 		StudentMess saved = studentMessRepository.save(sm);
 
-		com.smart.hostel.entity.Payment payment = new com.smart.hostel.entity.Payment();
+		Payment payment = new Payment();
 		payment.setStudent(student);
-		payment.setAmount(java.math.BigDecimal.valueOf(totalCost).negate());
-		payment.setPaymentType(com.smart.hostel.entity.PaymentType.MESS);
-		payment.setPaymentDate(java.time.LocalDateTime.now());
+		payment.setAmount(BigDecimal.valueOf(totalCost).negate());
+		payment.setPaymentType(PaymentType.MESS);
+		payment.setPaymentDate(LocalDateTime.now());
 		paymentRepository.save(payment);
 
 		try {

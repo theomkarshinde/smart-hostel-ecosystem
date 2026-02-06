@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.smart.hostel.dto.AdminDashboardStatsDTO;
 import com.smart.hostel.dto.HostelBuildingDTO;
@@ -172,7 +173,7 @@ public class AdminServiceImpl implements AdminService {
 				HostelBuilding building = buildingRepository.findById(bId)
 						.orElseThrow(() -> new ResourceNotFoundException("Building not found: " + bId));
 
-				com.smart.hostel.entity.StaffBuildingMap map = new com.smart.hostel.entity.StaffBuildingMap();
+				StaffBuildingMap map = new StaffBuildingMap();
 				map.setStaff(staff);
 				map.setBuilding(building);
 				staffBuildingMapRepository.save(map);
@@ -188,7 +189,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	@org.springframework.transaction.annotation.Transactional
+	@Transactional
 	public StaffDTO updateStaff(Long staffId, StaffDTO dto) {
 		Staff staff = staffRepository.findById(staffId)
 				.orElseThrow(() -> new ResourceNotFoundException("Staff not found"));

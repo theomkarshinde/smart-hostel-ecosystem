@@ -29,7 +29,7 @@ import com.smart.hostel.service.UserService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/auth")
+@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthController {
 

@@ -13,7 +13,7 @@ import com.smart.hostel.service.StudentMessService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/mess/subscription")
+@RequestMapping("/api/v1/mess/subscription")
 @AllArgsConstructor
 public class StudentMessController {
 

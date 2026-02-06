@@ -17,7 +17,7 @@ import com.smart.hostel.service.LaundryService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/laundry")
+@RequestMapping("/api/v1/laundry")
 @AllArgsConstructor
 public class LaundryController {
 

@@ -1,5 +1,6 @@
 package com.smart.hostel.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.smart.hostel.dto.PaymentDTO;
@@ -14,7 +15,7 @@ public interface PaymentService {
 
 	List<PaymentDTO> getHistory(String username);
 
-	PaymentDTO payFeeFromWallet(Long studentId, java.math.BigDecimal amount);
+	PaymentDTO payFeeFromWallet(Long studentId, BigDecimal amount);
 
 	PaymentDTO addCashPayment(PaymentDTO dto);
 }

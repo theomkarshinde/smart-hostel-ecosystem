@@ -21,7 +21,7 @@ import com.smart.hostel.service.ComplaintService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/complaints")
+@RequestMapping("/api/v1/complaints")
 @AllArgsConstructor
 public class ComplaintController {
 

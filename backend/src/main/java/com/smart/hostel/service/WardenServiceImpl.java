@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.smart.hostel.dto.WardenDashboardStatsDTO;
 import com.smart.hostel.dto.WardenProfileDTO;
 import com.smart.hostel.entity.HostelBuilding;
+import com.smart.hostel.entity.Staff;
 import com.smart.hostel.entity.StaffBuildingMap;
 import com.smart.hostel.entity.StudentStatus;
 import com.smart.hostel.repository.StaffBuildingMapRepository;
@@ -64,7 +65,7 @@ public class WardenServiceImpl implements WardenService {
 
 		if (!maps.isEmpty()) {
 			StaffBuildingMap map = maps.get(0);
-			com.smart.hostel.entity.Staff staff = map.getStaff();
+			Staff staff = map.getStaff();
 			staffId = staff.getStaffId();
 			fullName = staff.getFullName();
 

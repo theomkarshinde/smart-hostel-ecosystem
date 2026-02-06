@@ -1,6 +1,7 @@
 package com.smart.hostel.controller;
 
 import java.security.Principal;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import com.smart.hostel.service.PaymentService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/payments")
+@RequestMapping("/api/v1/payments")
 @AllArgsConstructor
 public class PaymentController {
 
@@ -40,7 +41,7 @@ public class PaymentController {
 
 	@PostMapping("/{studentId}/pay-from-wallet")
 	public ResponseEntity<PaymentDTO> payFromWallet(@PathVariable Long studentId,
-			@RequestBody java.math.BigDecimal amount) {
+			@RequestBody BigDecimal amount) {
 		return ResponseEntity.ok(paymentService.payFeeFromWallet(studentId, amount));
 	}
 

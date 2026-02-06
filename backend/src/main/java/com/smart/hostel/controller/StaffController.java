@@ -21,7 +21,7 @@ import com.smart.hostel.service.StaffService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/staff")
+@RequestMapping("/api/v1/staff")
 @AllArgsConstructor
 public class StaffController {
 

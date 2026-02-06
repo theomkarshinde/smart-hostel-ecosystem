@@ -11,6 +11,7 @@ import com.smart.hostel.dto.StudentAttendanceDTO;
 import com.smart.hostel.entity.AttendanceType;
 import com.smart.hostel.entity.Student;
 import com.smart.hostel.entity.StudentAttendance;
+import com.smart.hostel.exception.InsufficientBalanceException;
 import com.smart.hostel.exception.ResourceNotFoundException;
 import com.smart.hostel.repository.StudentAttendanceRepository;
 import com.smart.hostel.repository.StudentRepository;
@@ -36,7 +37,7 @@ public class StudentAttendanceServiceImpl implements StudentAttendanceService {
 		if (dto.attendanceType() == AttendanceType.MESS) {
 			double mealCost = 50.0;
 			if (student.getWalletBalance() < mealCost) {
-				throw new com.smart.hostel.exception.InsufficientBalanceException("Insufficient wallet balance");
+				throw new InsufficientBalanceException("Insufficient wallet balance");
 			}
 			student.setWalletBalance(student.getWalletBalance() - mealCost);
 			studentRepository.save(student);

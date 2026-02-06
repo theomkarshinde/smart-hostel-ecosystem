@@ -9,14 +9,15 @@ import org.springframework.stereotype.Repository;
 import com.smart.hostel.entity.Staff;
 import com.smart.hostel.entity.StaffType;
 import com.smart.hostel.entity.User;
+import java.util.Optional;
 
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Long> {
 
 	List<Staff> findByStaffType(StaffType staffType);
 
-	java.util.Optional<Staff> findByUser(User user);
+	Optional<Staff> findByUser(User user);
 
-	@Query("SELECT s FROM Staff s WHERE s.staffType = com.smart.hostel.entity.StaffType.WARDEN AND NOT EXISTS (SELECT m FROM StaffBuildingMap m WHERE m.staff = s)")
+	@Query("SELECT s FROM Staff s WHERE s.staffType = StaffType.WARDEN AND NOT EXISTS (SELECT m FROM StaffBuildingMap m WHERE m.staff = s)")
 	List<Staff> findUnassignedWardens();
 }

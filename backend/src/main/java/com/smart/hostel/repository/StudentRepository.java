@@ -11,6 +11,7 @@ import com.smart.hostel.entity.HostelBuilding;
 import com.smart.hostel.entity.Student;
 import com.smart.hostel.entity.StudentStatus;
 import com.smart.hostel.entity.User;
+import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -21,13 +22,13 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
 	List<Student> findByBuilding(HostelBuilding building);
 
-	java.util.Optional<Student> findByUser(User user);
+	Optional<Student> findByUser(User user);
 
 	List<Student> findByFullNameContainingIgnoreCase(String name);
 
 	@Query("SELECT s FROM Student s JOIN FETCH s.user WHERE LOWER(s.fullName) LIKE LOWER(CONCAT('%', :query, '%'))")
 	List<Student> searchStudentsWithUser(@Param("query") String query);
 
-	@Query("SELECT DISTINCT s.roomNumber FROM Student s JOIN s.building b WHERE b.buildingId = :buildingId AND s.roomNumber IS NOT NULL AND s.status = com.smart.hostel.entity.StudentStatus.APPROVED")
+	@Query("SELECT DISTINCT s.roomNumber FROM Student s JOIN s.building b WHERE b.buildingId = :buildingId AND s.roomNumber IS NOT NULL AND s.status = StudentStatus.APPROVED")
 	List<String> findAllocatedRoomNumbersByBuildingId(@Param("buildingId") Long buildingId);
 }

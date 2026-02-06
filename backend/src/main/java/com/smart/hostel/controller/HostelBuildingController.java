@@ -19,7 +19,7 @@ import com.smart.hostel.service.RoomService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/api/buildings")
+@RequestMapping("/api/v1/buildings")
 @AllArgsConstructor
 public class HostelBuildingController {
 

@@ -2,6 +2,7 @@ package com.smart.hostel.service;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class QRCodeService {
 			String token = jwtUtil.generateQrToken(username);
 
 			QRCodeWriter qrCodeWriter = new QRCodeWriter();
-			Map<com.google.zxing.EncodeHintType, Object> hints = new java.util.HashMap<>();
+			Map<EncodeHintType, Object> hints = new HashMap<>();
 			hints.put(EncodeHintType.MARGIN, 1);
 			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
 

@@ -76,8 +76,8 @@ public class PaymentServiceImpl implements PaymentService {
             return order.get("id");
 
         } catch (Exception e) {
-			throw new PaymentCreationException("Failed to create Razorpay order", e);
-		}
+            throw new PaymentCreationException("Failed to create Razorpay order", e);
+        }
     }
 
     @Override
@@ -165,7 +165,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentDTO payFeeFromWallet(Long studentId, java.math.BigDecimal amount) {
+    public PaymentDTO payFeeFromWallet(Long studentId, BigDecimal amount) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
 
@@ -180,21 +180,21 @@ public class PaymentServiceImpl implements PaymentService {
         return mapToPaymentDTO(saved, student);
     }
 
-    private void validateWalletBalance(Student student, java.math.BigDecimal amount) {
+    private void validateWalletBalance(Student student, BigDecimal amount) {
         if (student.getWalletBalance() < amount.doubleValue()) {
             throw new InsufficientBalanceException(
                     "Insufficient wallet balance. Please add money to your wallet first.");
         }
     }
 
-    private void updateStudentWalletAndFee(Student student, java.math.BigDecimal amount) {
+    private void updateStudentWalletAndFee(Student student, BigDecimal amount) {
         student.setWalletBalance(student.getWalletBalance() - amount.doubleValue());
         Double currentPaid = student.getPaidFee() != null ? student.getPaidFee() : 0.0;
         student.setPaidFee(currentPaid + amount.doubleValue());
         studentRepository.save(student);
     }
 
-    private Payment createPaymentRecord(Student student, java.math.BigDecimal amount, PaymentType type) {
+    private Payment createPaymentRecord(Student student, BigDecimal amount, PaymentType type) {
         Payment payment = new Payment();
         payment.setStudent(student);
         payment.setAmount(amount);
@@ -203,7 +203,7 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepository.save(payment);
     }
 
-    private void sendFeePaymentNotification(Student student, java.math.BigDecimal amount) {
+    private void sendFeePaymentNotification(Student student, BigDecimal amount) {
         try {
             NotificationDTO notif = new NotificationDTO(null, student.getUser().getUserId(), "Fee Payment Successful",
                     "A fee payment of ₹" + amount + " has been processed from your wallet.", false, null);

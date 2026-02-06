@@ -44,7 +44,7 @@ A comprehensive ecosystem for managing hostel operations, featuring modules for 
 2. Locate `.env.example` and create a new file named `.env`.
 3. Add your configuration:
    - `VITE_RAZORPAY_KEY_ID=your_key_here`
-   - `VITE_API_URL=your_api_url_here` (e.g., http://localhost:8084/v1/api)
+   - `VITE_API_URL=your_api_url_here` (e.g., http://localhost:8084/api/v1)
    - `VITE_WS_URL=your_ws_url_here` (e.g., ws://localhost:8084/ws)
 4. Install dependencies: `npm install`
 5. Run the development server: `npm run dev`
