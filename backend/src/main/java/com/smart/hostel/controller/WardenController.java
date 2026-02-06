@@ -27,10 +27,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/v1/warden")
+@RequestMapping("/warden")
 @AllArgsConstructor
 @Slf4j
-public class WardenController {
+public class WardenController extends BaseApiController {
 
 	private final WardenService wardenService;
 	private final StudentService studentService;

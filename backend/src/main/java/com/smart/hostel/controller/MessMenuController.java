@@ -18,9 +18,9 @@ import com.smart.hostel.service.MessMenuService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/mess/menu")
+@RequestMapping("/mess/menu")
 @AllArgsConstructor
-public class MessMenuController {
+public class MessMenuController extends BaseApiController {
 
 	private final MessMenuService messMenuService;
 

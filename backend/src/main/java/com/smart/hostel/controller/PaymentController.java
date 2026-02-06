@@ -18,9 +18,9 @@ import com.smart.hostel.service.PaymentService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/payments")
+@RequestMapping("/payments")
 @AllArgsConstructor
-public class PaymentController {
+public class PaymentController extends BaseApiController {
 
 	private final PaymentService paymentService;
 

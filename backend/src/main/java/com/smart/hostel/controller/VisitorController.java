@@ -18,9 +18,9 @@ import com.smart.hostel.service.VisitorService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/visitors")
+@RequestMapping("/visitors")
 @AllArgsConstructor
-public class VisitorController {
+public class VisitorController extends BaseApiController {
 
 	private final VisitorService visitorService;
 

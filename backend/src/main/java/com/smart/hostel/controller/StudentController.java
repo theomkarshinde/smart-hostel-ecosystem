@@ -24,9 +24,9 @@ import com.smart.hostel.service.StudentService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/students")
+@RequestMapping("/students")
 @AllArgsConstructor
-public class StudentController {
+public class StudentController extends BaseApiController {
 
 	private final StudentService studentService;
 	private final QRCodeService qrCodeService;

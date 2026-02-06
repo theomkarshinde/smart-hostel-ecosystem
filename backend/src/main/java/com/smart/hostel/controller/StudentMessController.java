@@ -13,9 +13,9 @@ import com.smart.hostel.service.StudentMessService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/mess/subscription")
+@RequestMapping("/mess/subscription")
 @AllArgsConstructor
-public class StudentMessController {
+public class StudentMessController extends BaseApiController {
 
 	private final StudentMessService studentMessService;
 

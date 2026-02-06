@@ -31,9 +31,9 @@ import com.smart.hostel.exception.UnauthorizedException;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/attendance")
+@RequestMapping("/attendance")
 @AllArgsConstructor
-public class AttendanceController {
+public class AttendanceController extends BaseApiController {
 
 	private final AttendanceService attendanceService;
 	private final StudentService studentService;

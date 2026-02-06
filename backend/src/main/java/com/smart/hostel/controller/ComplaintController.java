@@ -21,9 +21,9 @@ import com.smart.hostel.service.ComplaintService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/complaints")
+@RequestMapping("/complaints")
 @AllArgsConstructor
-public class ComplaintController {
+public class ComplaintController extends BaseApiController {
 
 	private final ComplaintService complaintService;
 	private final ComplaintActionService complaintActionService;

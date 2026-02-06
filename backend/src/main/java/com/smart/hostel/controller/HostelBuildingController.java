@@ -19,9 +19,9 @@ import com.smart.hostel.service.RoomService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/buildings")
+@RequestMapping("/buildings")
 @AllArgsConstructor
-public class HostelBuildingController {
+public class HostelBuildingController extends BaseApiController {
 
 	private final HostelBuildingService buildingService;
 	private final RoomService roomService;

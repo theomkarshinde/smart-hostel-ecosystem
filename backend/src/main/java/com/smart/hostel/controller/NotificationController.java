@@ -17,9 +17,9 @@ import com.smart.hostel.service.NotificationService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/notifications")
+@RequestMapping("/notifications")
 @AllArgsConstructor
-public class NotificationController {
+public class NotificationController extends BaseApiController {
 
 	private final NotificationService notificationService;
 

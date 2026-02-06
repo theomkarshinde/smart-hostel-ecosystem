@@ -29,9 +29,9 @@ import com.smart.hostel.service.UserService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 @AllArgsConstructor
-public class AuthController {
+public class AuthController extends BaseApiController {
 
 	private final AuthenticationManager authenticationManager;
 	private final JwtUtil jwtUtil;
