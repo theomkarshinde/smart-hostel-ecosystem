@@ -11,7 +11,7 @@ public interface AttendanceService {
 
 	StudentAttendanceDTO markStudentAttendance(StudentAttendanceDTO dto);
 
-	StaffAttendanceDTO markStaffAttendance(StaffAttendanceDTO dto);
+	StaffAttendanceDTO markStaffAttendance(StaffAttendanceDTO dto, String requesterUsername);
 
 	StudentAttendanceDTO markStudentAttendanceByQR(String qrToken, AttendanceType type);
 

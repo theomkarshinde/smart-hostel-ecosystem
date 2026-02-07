@@ -2,6 +2,8 @@ package com.smart.hostel.service;
 
 import java.util.List;
 
+import com.smart.hostel.dto.ApproveStudentRequest;
+import com.smart.hostel.dto.RegistrationRequest;
 import com.smart.hostel.dto.StudentDTO;
 import com.smart.hostel.dto.StudentStatsDTO;
 import com.smart.hostel.entity.Gender;
@@ -13,8 +15,9 @@ public interface StudentService {
 	StudentDTO createPendingStudent(Long userId, String fullName, Gender gender, Double totalFee, Long buildingId,
 			String roomNumber);
 
-	StudentDTO approve(Long studentId, Long buildingId, Double totalFee, Boolean isEmiEnabled, Double emiAmount,
-			String roomNumber);
+	StudentDTO registerByWarden(RegistrationRequest request, String wardenUsername);
+
+	StudentDTO approve(Long studentId, Long buildingId, ApproveStudentRequest request);
 
 	StudentDTO reject(Long studentId);
 

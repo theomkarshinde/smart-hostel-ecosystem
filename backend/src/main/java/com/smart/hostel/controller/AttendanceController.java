@@ -16,40 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smart.hostel.dto.StaffAttendanceDTO;
 import com.smart.hostel.dto.StaffAttendanceStatusDTO;
 import com.smart.hostel.dto.StudentAttendanceDTO;
-import com.smart.hostel.dto.StudentDTO;
 import com.smart.hostel.entity.AttendanceType;
-import com.smart.hostel.entity.Staff;
-import com.smart.hostel.entity.User;
-import com.smart.hostel.exception.StaffNotFoundException;
-import com.smart.hostel.exception.UserNotFoundException;
-import com.smart.hostel.repository.StaffRepository;
-import com.smart.hostel.repository.UserRepository;
 import com.smart.hostel.service.AttendanceService;
-import com.smart.hostel.service.StudentService;
-import com.smart.hostel.exception.UnauthorizedException;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/attendance")
+@RequestMapping("/api/v1/attendance")
 @AllArgsConstructor
-public class AttendanceController extends BaseApiController {
+public class AttendanceController {
 
 	private final AttendanceService attendanceService;
-	private final StudentService studentService;
-	private final StaffRepository staffRepository;
-	private final UserRepository userRepository;
 
 	@PostMapping("/student")
 	public ResponseEntity<StudentAttendanceDTO> markStudent(@RequestBody StudentAttendanceDTO dto,
 			Principal principal) {
-		String username = principal.getName();
-		StudentDTO student = studentService.getStudentByUsername(username);
-
-		StudentAttendanceDTO updatedDto = new StudentAttendanceDTO(dto.attendanceId(), student.studentId(),
-				dto.buildingId(), dto.attendanceType(), dto.hostelAction(), dto.mealType(), dto.attendanceDate(),
-				dto.attendanceTime(), dto.createdAt());
-		return ResponseEntity.ok(attendanceService.markStudentAttendance(updatedDto));
+		return ResponseEntity.ok(attendanceService.markStudentAttendanceByUsername(principal.getName(), dto));
 	}
 
 	@PostMapping("/student/manual/{username}")
@@ -61,28 +43,7 @@ public class AttendanceController extends BaseApiController {
 	@PostMapping("/staff")
 	@PreAuthorize("hasAnyRole('WARDEN', 'ADMIN')")
 	public ResponseEntity<StaffAttendanceDTO> markStaff(@RequestBody StaffAttendanceDTO dto, Principal principal) {
-		String currentUsername = principal.getName();
-		User currentUser = userRepository.findByUsername(currentUsername)
-				.orElseThrow(() -> new UserNotFoundException("Current user not found"));
-
-		Staff targetStaff = staffRepository.findById(dto.staffId())
-				.orElseThrow(() -> new StaffNotFoundException("Target staff not found"));
-
-		String currentUserRole = currentUser.getRole().getRoleName();
-		String targetStaffRole = targetStaff.getUser().getRole().getRoleName();
-
-		if (currentUserRole.equals("ADMIN")) {
-			if (!targetStaffRole.equals("WARDEN")) {
-				throw new UnauthorizedException(
-						"Admins can only mark attendance for Wardens");
-			}
-		} else if (currentUserRole.equals("WARDEN")) {
-			if (targetStaffRole.equals("ADMIN")) {
-				throw new UnauthorizedException("Wardens cannot mark attendance for Admins");
-			}
-		}
-
-		return ResponseEntity.ok(attendanceService.markStaffAttendance(dto));
+		return ResponseEntity.ok(attendanceService.markStaffAttendance(dto, principal.getName()));
 	}
 
 	@PostMapping("/qr")

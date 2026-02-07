@@ -21,9 +21,9 @@ import com.smart.hostel.service.StaffService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/staff")
+@RequestMapping("/api/v1/staff")
 @AllArgsConstructor
-public class StaffController extends BaseApiController {
+public class StaffController {
 
 	private final StaffService staffService;
 

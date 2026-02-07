@@ -16,25 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smart.hostel.dto.RegistrationRequest;
 import com.smart.hostel.dto.StudentDTO;
-import com.smart.hostel.dto.UserDTO;
 import com.smart.hostel.dto.WardenDashboardStatsDTO;
 import com.smart.hostel.dto.WardenProfileDTO;
 import com.smart.hostel.service.StudentService;
-import com.smart.hostel.service.UserService;
 import com.smart.hostel.service.WardenService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/warden")
+@RequestMapping("/api/v1/warden")
 @AllArgsConstructor
 @Slf4j
-public class WardenController extends BaseApiController {
+public class WardenController {
 
 	private final WardenService wardenService;
 	private final StudentService studentService;
-	private final UserService userService;
 
 	@GetMapping("/stats")
 	public ResponseEntity<WardenDashboardStatsDTO> getStats() {
@@ -72,14 +69,6 @@ public class WardenController extends BaseApiController {
 
 	@PostMapping("/students/register")
 	public ResponseEntity<StudentDTO> registerStudent(@RequestBody RegistrationRequest request, Principal principal) {
-		WardenProfileDTO profile = wardenService.getProfile(principal.getName());
-		Long bId = profile.buildingId();
-
-		UserDTO userDTO = new UserDTO(null, null, null, request.username(), request.email(), request.phoneNumber(),
-				request.fullName(), request.password(), true, null);
-		UserDTO createdUser = userService.createUser(userDTO);
-
-		return ResponseEntity.ok(studentService.createApprovedStudent(createdUser.userId(), request.fullName(),
-				request.gender(), request.totalFee(), bId, request.roomNumber()));
+		return ResponseEntity.ok(studentService.registerByWarden(request, principal.getName()));
 	}
 }

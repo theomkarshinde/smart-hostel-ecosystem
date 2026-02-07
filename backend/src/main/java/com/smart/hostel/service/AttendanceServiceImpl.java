@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.smart.hostel.exception.UnauthorizedException;
+
 import org.springframework.stereotype.Service;
 
 import com.smart.hostel.dto.StaffAttendanceDTO;
@@ -57,7 +59,26 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public StaffAttendanceDTO markStaffAttendance(StaffAttendanceDTO dto) {
+	public StaffAttendanceDTO markStaffAttendance(StaffAttendanceDTO dto, String requesterUsername) {
+		User currentUser = userRepository.findByUsername(requesterUsername)
+				.orElseThrow(() -> new UserNotFoundException("Current user not found"));
+
+		Staff targetStaff = staffRepository.findById(dto.staffId())
+				.orElseThrow(() -> new StaffNotFoundException("Target staff not found"));
+
+		String currentUserRole = currentUser.getRole().getRoleName();
+		String targetStaffRole = targetStaff.getUser().getRole().getRoleName();
+
+		if (currentUserRole.equals("ADMIN")) {
+			if (!targetStaffRole.equals("WARDEN")) {
+				throw new UnauthorizedException("Admins can only mark attendance for Wardens");
+			}
+		} else if (currentUserRole.equals("WARDEN")) {
+			if (targetStaffRole.equals("ADMIN")) {
+				throw new UnauthorizedException("Wardens cannot mark attendance for Admins");
+			}
+		}
+
 		return staffAttendanceService.mark(dto);
 	}
 
@@ -89,9 +110,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 		Student student = studentRepository.findByUser(user)
 				.orElseThrow(() -> new StudentNotFoundException("Student not found for user: " + username));
 
-		return attendanceStrategies.stream().filter(s -> s.supports(dto.attendanceType())).findFirst().orElseThrow(
-				() -> new UnsupportedAttendanceTypeException("Unsupported attendance type: " + dto.attendanceType()))
-				.mark(student, dto.attendanceType());
+		StudentAttendanceDTO updatedDto = new StudentAttendanceDTO(dto.attendanceId(), student.getStudentId(),
+				dto.buildingId(), dto.attendanceType(), dto.hostelAction(), dto.mealType(), dto.attendanceDate(),
+				dto.attendanceTime(), dto.createdAt());
+
+		return markStudentAttendance(updatedDto);
 	}
 
 	@Override

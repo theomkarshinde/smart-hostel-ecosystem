@@ -1,6 +1,9 @@
 package com.smart.hostel.controller;
 
+import java.security.Principal;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,20 +16,20 @@ import com.smart.hostel.service.StudentMessService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/mess/subscription")
+@RequestMapping("/api/v1/mess/subscription")
 @AllArgsConstructor
-public class StudentMessController extends BaseApiController {
+public class StudentMessController {
 
 	private final StudentMessService studentMessService;
 
 	@PostMapping
-	@org.springframework.security.access.prepost.PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN') or @securityService.isMessWarden(principal.username)")
+	@PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN') or @securityService.isMessWarden(principal.username)")
 	public ResponseEntity<StudentMessDTO> subscribe(@RequestBody StudentMessDTO dto) {
 		return ResponseEntity.ok(studentMessService.subscribe(dto));
 	}
 
 	@GetMapping
-	public ResponseEntity<StudentMessDTO> getMySubscription(java.security.Principal principal) {
+	public ResponseEntity<StudentMessDTO> getMySubscription(Principal principal) {
 		return ResponseEntity.ok(studentMessService.getSubscription(principal.getName()));
 	}
 }

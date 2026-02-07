@@ -27,6 +27,10 @@ import com.smart.hostel.repository.StudentMessRepository;
 import com.smart.hostel.repository.StudentRepository;
 import com.smart.hostel.repository.UserRepository;
 
+import com.smart.hostel.dto.ApproveStudentRequest;
+import com.smart.hostel.dto.RegistrationRequest;
+import com.smart.hostel.dto.UserDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +45,8 @@ public class StudentServiceImpl implements StudentService {
 	private final StudentAttendanceRepository attendanceRepository;
 	private final StudentMessRepository messRepository;
 	private final NotificationService notificationService;
+	private final WardenService wardenService;
+	private final UserService userService;
 
 	@Override
 	public StudentDTO register(StudentDTO dto) {
@@ -93,8 +99,25 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public StudentDTO approve(Long studentId, Long buildingId, Double totalFee, Boolean isEmiEnabled, Double emiAmount,
-			String roomNumber) {
+	public StudentDTO registerByWarden(RegistrationRequest request, String wardenUsername) {
+		var profile = wardenService.getProfile(wardenUsername);
+		Long bId = profile.buildingId();
+
+		UserDTO userDTO = new UserDTO(null, null, null, request.username(), request.email(), request.phoneNumber(),
+				request.fullName(), request.password(), true, null);
+		UserDTO createdUser = userService.createUser(userDTO);
+
+		return createApprovedStudent(createdUser.userId(), request.fullName(), request.gender(), request.totalFee(),
+				bId, request.roomNumber());
+	}
+
+	@Override
+	public StudentDTO approve(Long studentId, Long buildingId, ApproveStudentRequest request) {
+		Double totalFee = (request != null && request.totalFee() != null) ? request.totalFee() : 0.0;
+		Boolean isEmiEnabled = (request != null && request.isEmiEnabled() != null) ? request.isEmiEnabled() : false;
+		Double emiAmount = (request != null && request.emiAmount() != null) ? request.emiAmount() : 0.0;
+		String roomNumber = (request != null) ? request.roomNumber() : null;
+
 		Student student = studentRepository.findById(studentId)
 				.orElseThrow(() -> new ResourceNotFoundException("Student not found"));
 		HostelBuilding building = buildingRepository.findById(buildingId)

@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.core.userdetails.User;
 
 import com.smart.hostel.entity.User;
 import com.smart.hostel.repository.UserRepository;
@@ -28,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 				.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
 		String roleName = user.getRole().getRoleName();
-		return new User(user.getUsername(), user.getPasswordHash(),
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPasswordHash(),
 				Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + roleName)));
 	}
 }

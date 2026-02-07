@@ -24,9 +24,9 @@ import com.smart.hostel.service.StudentService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/api/v1/students")
 @AllArgsConstructor
-public class StudentController extends BaseApiController {
+public class StudentController {
 
 	private final StudentService studentService;
 	private final QRCodeService qrCodeService;
@@ -39,12 +39,7 @@ public class StudentController extends BaseApiController {
 	@PutMapping("/{studentId}/approve/{buildingId}")
 	public ResponseEntity<StudentDTO> approve(@PathVariable Long studentId, @PathVariable Long buildingId,
 			@RequestBody(required = false) ApproveStudentRequest request) {
-		Double totalFee = (request != null && request.totalFee() != null) ? request.totalFee() : 0.0;
-		Boolean isEmi = (request != null && request.isEmiEnabled() != null) ? request.isEmiEnabled() : false;
-		Double emiAmount = (request != null && request.emiAmount() != null) ? request.emiAmount() : 0.0;
-		String roomNumber = (request != null) ? request.roomNumber() : null;
-
-		return ResponseEntity.ok(studentService.approve(studentId, buildingId, totalFee, isEmi, emiAmount, roomNumber));
+		return ResponseEntity.ok(studentService.approve(studentId, buildingId, request));
 	}
 
 	@PutMapping("/{studentId}/reject")

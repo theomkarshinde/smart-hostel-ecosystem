@@ -1,5 +1,6 @@
 package com.smart.hostel.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,9 @@ import com.smart.hostel.service.ComplaintService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/complaints")
+@RequestMapping("/api/v1/complaints")
 @AllArgsConstructor
-public class ComplaintController extends BaseApiController {
+public class ComplaintController {
 
 	private final ComplaintService complaintService;
 	private final ComplaintActionService complaintActionService;
@@ -34,7 +35,7 @@ public class ComplaintController extends BaseApiController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ComplaintDTO> raise(@RequestBody ComplaintDTO dto, java.security.Principal principal) {
+	public ResponseEntity<ComplaintDTO> raise(@RequestBody ComplaintDTO dto, Principal principal) {
 		return ResponseEntity.ok(complaintService.raise(dto, principal.getName())); // Pass username
 	}
 

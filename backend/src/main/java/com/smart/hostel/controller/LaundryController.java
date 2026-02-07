@@ -1,5 +1,6 @@
 package com.smart.hostel.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,9 @@ import com.smart.hostel.service.LaundryService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/laundry")
+@RequestMapping("/api/v1/laundry")
 @AllArgsConstructor
-public class LaundryController extends BaseApiController {
+public class LaundryController {
 
 	private final LaundryService laundryService;
 
@@ -29,7 +30,7 @@ public class LaundryController extends BaseApiController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<LaundryBookingDTO>> getHistory(java.security.Principal principal) {
+	public ResponseEntity<List<LaundryBookingDTO>> getHistory(Principal principal) {
 		return ResponseEntity.ok(laundryService.getHistory(principal.getName()));
 	}
 
@@ -39,7 +40,7 @@ public class LaundryController extends BaseApiController {
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<LaundryBookingDTO>> getAll(java.security.Principal principal) {
+	public ResponseEntity<List<LaundryBookingDTO>> getAll(Principal principal) {
 		return ResponseEntity.ok(laundryService.getAllBookings(principal.getName()));
 	}
 }
